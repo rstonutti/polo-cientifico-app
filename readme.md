@@ -2,7 +2,8 @@
 
 <img src="https://www.claris.com/cms/blog/images/cms/1262.jpg" width="100%" alt="Plataforma web para un Instituto Educativo" style="display: block; float: none;
     margin-left: auto;
-    margin-right: auto;"/>
+    margin-right: auto;
+    border-radius: 10px;"/>
 
 ## 📜 Resumen 📜
 
