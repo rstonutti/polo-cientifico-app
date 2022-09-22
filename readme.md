@@ -1,6 +1,6 @@
 # Plataforma web para un Instituto Educativo
 
-![Plataforma web para un Instituto Educativo](https://www.ipf.edu.ar/img/logo_institucional.jpg){ width="50%" style="display: block; margin: 0 auto" }
+<img src="https://img.icons8.com/color/452/mongodb.png" width="100%" alt="Plataforma web para un Instituto Educativo" style="display: block; margin: 0 auto"/>
 
 ## 📜 Resumen 📜
 
@@ -35,5 +35,3 @@ Desarrollar plataforma web para organizar y acceder de forma rápida a la inform
     </tr>
   </tbody>
 </table>
-
-
