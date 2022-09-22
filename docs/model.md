@@ -1,4 +1,4 @@
-# [Modelado de datos]
+# Modelado de datos
 
 ## Carreras
 ```js

@@ -8,6 +8,10 @@
 
 Desarrollar plataforma web para organizar y acceder de forma rápida a la información del Instituto desde cualquier parte.
 
+## ⬇️ Código ⬇️
+
+-[Modelado de datos](https://github.com/rstonutti/polo-cientifico-app/blob/main/docs/model.md "Enlace a los schemas")
+
 ## 👨‍💻 Tecnologías Usadas 👨‍💻
 
 <table>
