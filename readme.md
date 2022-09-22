@@ -10,7 +10,7 @@ Desarrollar plataforma web para organizar y acceder de forma rápida a la inform
 
 ## ⬇️ Código ⬇️
 
-[-Modelado de datos](https://github.com/rstonutti/polo-cientifico-app/blob/main/docs/model.md "Enlace a los schemas")
+- [Modelado de datos](https://github.com/rstonutti/polo-cientifico-app/blob/main/docs/model.md "Enlace a los schemas")
 
 ## 👨‍💻 Tecnologías Usadas 👨‍💻
 
