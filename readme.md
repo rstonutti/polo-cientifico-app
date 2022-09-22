@@ -1,5 +1,9 @@
 # Plataforma web para un Instituto Educativo
 
+<img src="https://www.claris.com/cms/blog/images/cms/1262.jpg" width="100%" alt="Plataforma web para un Instituto Educativo" style="display: block; float: none;
+    margin-left: auto;
+    margin-right: auto;"/>
+
 ## 📜 Resumen 📜
 
 Desarrollar plataforma web para organizar y acceder de forma rápida a la información del Instituto desde cualquier parte.
