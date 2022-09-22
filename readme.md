@@ -1,6 +1,7 @@
 # Plataforma web para un Instituto Educativo
 
 ![Plataforma web para un Instituto Educativo](https://www.ipf.edu.ar/img/logo_institucional.jpg)
+<img src="https://www.ipf.edu.ar/img/logo_institucional.jpg" width="50%" />
 
 ## 📜 Resumen 📜
 
