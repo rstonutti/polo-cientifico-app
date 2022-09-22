@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 
 const { login, revalidarToken } = require("../controllers/auth.controllers");
 
-const { validarJWT } = require("../middlewares/validarJWT");
+const { validarJWT } = require("../middlewares");
 
 router.post("/login", login);
 

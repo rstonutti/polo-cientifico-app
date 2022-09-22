@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 //Settings
-app.set("port", process.env.PORT || 8080);
+app.set("port", process.env.PORT || 3000);
 
 //Routes
 app.use("/auth", require("./routes/auth.routes"));

@@ -1,6 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const ComentarioSchema = new Schema(
+  {
+    autor: {
+      type: Schema.Types.ObjectId,
+      ref: "Usuario",
+    },
+    descripcion: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+  }
+);
+
 const PublicacioneSchema = new Schema(
   {
     autor: {
@@ -29,22 +45,6 @@ const PublicacioneSchema = new Schema(
     date: {
       type: Date,
       default: Date.now(),
-    },
-  },
-  {
-    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
-  }
-);
-
-const ComentarioSchema = new Schema(
-  {
-    autor: {
-      type: Schema.Types.ObjectId,
-      ref: "Usuario",
-    },
-    descripcion: {
-      type: String,
-      required: true,
     },
   },
   {
