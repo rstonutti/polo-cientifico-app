@@ -5,7 +5,7 @@
 CarreraSchema = {
   nombre: {
     type: String,
-    required: [true, "El nombre de la materia es necesario"],
+    required: [true, "El nombre de la carrera es necesario"],
   },
   materias: [
     {
@@ -43,7 +43,7 @@ MateriaSchema = {
       },
     },
   ],
-  alumnos: {
+  alumnos: [{
     idUsuario: {
       type: Schema.Types.ObjectId,
       ref: "Usuario",
@@ -54,7 +54,7 @@ MateriaSchema = {
         nota: { type: Number },
       },
     ],
-  },
+  }],
   carrera: {
     idCarrera: {
       type: Schema.Types.ObjectId,

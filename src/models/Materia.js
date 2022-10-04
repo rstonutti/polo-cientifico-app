@@ -18,7 +18,7 @@ const MateriaSchema = new Schema(
         },
       },
     ],
-    alumnos: {
+    alumnos: [{
       idUsuario: {
         type: Schema.Types.ObjectId,
         ref: "Usuario",
@@ -29,7 +29,7 @@ const MateriaSchema = new Schema(
           nota: { type: Number },
         },
       ],
-    },
+    }],
     carrera: {
       idCarrera: {
         type: Schema.Types.ObjectId,

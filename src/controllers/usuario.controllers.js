@@ -1,11 +1,32 @@
 const bcryptjs = require("bcryptjs");
 const { request, response } = require("express");
-
-const { generarJWT } = require("../helpers/generarJWT");
-
 const { Usuario } = require("../models");
 
 const ctrlUsuario = {};
+
+ctrlUsuario.obtenerTodos = async (req = request, res = response) => {
+  const { desde = 0, hasta = 5 } = req.query;
+  const query = { estado: true };
+
+  try {
+    const [total, usuarios] = await Promise.all([
+      Usuario.countDocuments(query),
+      Usuario.find().skip(Number(desde)).limit(Number(hasta)),
+    ]);
+
+    res.status(200).json({
+      ok: true,
+      total,
+      usuarios,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+};
 
 ctrlUsuario.obtenerUsuario = async (req = request, res = response) => {
   const { id } = req.params;
@@ -32,43 +53,16 @@ ctrlUsuario.obtenerUsuario = async (req = request, res = response) => {
   }
 };
 
-ctrlUsuario.crearUsuario = async (req = request, res = response) => {
-  const { contrasenia, ...resto } = req.body;
-  try {
-    const usuario = new Usuario(resto);
-    //Encriptar contraseña
-    const salt = bcryptjs.genSaltSync();
-    usuario.contrasenia = bcryptjs.hashSync(contrasenia, salt);
-    //Guardar usuario en db
-    const usuarioCreado = await usuario.save();
-
-    const token = await generarJWT(usuarioCreado.id);
-
-    res.status(201).json({
-      ok: true,
-      msg: "Usuario agregado exitosamente",
-      token,
-      usuario,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      ok: false,
-      msg: "Por favor, hable con el administrador",
-    });
-  }
-};
-
 ctrlUsuario.editarUsuario = async (req = request, res = response) => {
   const { id } = req.params;
-  const { _id, contrasenia, nombre, ...resto } = req.body;
+  const { _id, contrasenia, correo, ...resto } = req.body;
   try {
     //Validar contra db
     if (contrasenia) {
       const salt = bcryptjs.genSaltSync();
       resto.contrasenia = bcryptjs.hashSync(contrasenia, salt);
     }
-    const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
+    const usuario = await Usuario.findOneAndUpdate(id, resto, { new: true });
     res.status(200).json({
       msg: "Datos del usuario actualizados exitosamente",
       usuario,

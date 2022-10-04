@@ -2,8 +2,8 @@ const router = require("express").Router();
 const { check } = require("express-validator");
 
 const {
+  obtenerTodos,
   obtenerUsuario,
-  crearUsuario,
   editarUsuario,
   borrarUsuario,
 } = require("../controllers/usuario.controllers");
@@ -23,7 +23,17 @@ const {
 } = require("../middlewares");
 
 router.get(
-  "/:id",
+  "/",
+  [
+    validarJWT,
+    tieneRole("admin_role", "collaboration_role", "user_role"),
+    validarCampos,
+  ],
+  obtenerTodos
+);
+
+router.get(
+  "/buscar/:id",
   [
     validarJWT,
     tieneRole("admin_role", "collaboration_role", "user_role"),
@@ -34,32 +44,11 @@ router.get(
   obtenerUsuario
 );
 
-router.post(
-  "/registrar",
-  [
-    check("nombre", "El nombre de usuario no debe estar vacío").not().isEmpty(),
-    check(
-      "nombre",
-      "El nombre de usuario debe tener como minimo 2 caracteres"
-    ).isLength({ min: 2 }),
-    check("nombre").custom(existeNombre),
-    check("contrasenia", "La contraseña no debe estar vacía").not().isEmpty(),
-    check(
-      "contrasenia",
-      "La contraseña debe tener como minimo 8 caracteres"
-    ).isLength({ min: 8 }),
-    check("correo", "El correo no es válido").isEmail(),
-    check("correo").custom(existeCorreo),
-    validarCampos,
-  ],
-  crearUsuario
-);
-
 router.put(
   "/:id",
   [
     validarJWT,
-    adminRole,
+    tieneRole("admin_role", "teacher_role", "student_role", "user_role"),
     check("id", "No es un ID válido").isMongoId(),
     check("id").custom(existeUsuarioID),
     //check('nombre', 'El nombre de usuario no debe estar vacío').not().isEmpty(),
@@ -70,8 +59,8 @@ router.put(
       "La contraseña debe tener como minimo 8 caracteres"
     ).isLength({ min: 8 }),
     check("correo", "El correo no es válido").isEmail(),
-    check("correo").custom(existeCorreo),
-    check("rol").custom(existeRol),
+    /* check("correo").custom(existeCorreo), */
+    /* check("rol").custom(existeRol), */
     check("estado", "El estado no es válido").isBoolean(),
     validarCampos,
   ],
