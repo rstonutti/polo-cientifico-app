@@ -52,9 +52,11 @@ ctrlCarrera.obtenerCarrera = async (req = request, res = response) => {
 ctrlCarrera.crearCarrera = async (req = request, res = response) => {
   const body = req.body;
 
-  try {
+  console.log(body)
+
+   try {
     const nuevaCarrera = new Carrera(body);
-    //publicacion.createdAt = Date.now();
+    //nuevaCarrera.createdAt = Date.now();
     const carrera = await nuevaCarrera.save();
 
     res.status(201).json({
@@ -68,7 +70,7 @@ ctrlCarrera.crearCarrera = async (req = request, res = response) => {
       ok: false,
       msg: "Por favor hable con el administrador",
     });
-  }
+  } 
 };
 
 ctrlCarrera.borrarCarrera = async (req = request, res = response) => {

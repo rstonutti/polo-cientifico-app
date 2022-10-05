@@ -15,19 +15,19 @@ const UsuarioSchema = new Schema(
       type: String,
       required: [true, "El apellido es necesario"],
     },
-    dni: {
+/*     dni: {
       type: String,
-      unique: [true, "El DNI está en uso"],
-      required: [true, "El apellido es necesario"],
-    },
+      //unique: [true, "El DNI está en uso"],
+      //required: [true, "El apellido es necesario"],
+    }, */
     contrasenia: {
       type: String,
       required: [true, "La contraseña es necesaria"],
     },
     correo: {
       type: String,
-      unique: [true, "El correo está en uso"],
-      required: [true, "El correo es necesario"],
+      //unique: [true, "El correo está en uso"],
+      //required: [true, "El correo es necesario"],
     },
     avatar: {
       type: String,

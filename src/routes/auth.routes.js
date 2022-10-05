@@ -21,19 +21,19 @@ const {
 router.post(
   "/registrar",
   [
-    check("nombre", "El nombre de usuario no debe estar vacío").not().isEmpty(),
+    check("alias", "El alias de usuario no debe estar vacío").not().isEmpty(),
     check(
-      "nombre",
-      "El nombre de usuario debe tener como minimo 2 caracteres"
+      "alias",
+      "El alias de usuario debe tener como minimo 2 caracteres"
     ).isLength({ min: 2 }),
-    check("nombre").custom(existeNombre),
+    check("alias").custom(existeNombre),
     check("contrasenia", "La contraseña no debe estar vacía").not().isEmpty(),
     check(
       "contrasenia",
       "La contraseña debe tener como minimo 8 caracteres"
     ).isLength({ min: 8 }),
-    check("correo", "El correo no es válido").isEmail(),
-    check("correo").custom(existeCorreo),
+    //check("correo", "El correo no es válido").isEmail(),
+    //check("correo").custom(existeCorreo),
     validarCampos,
   ],
   registrar

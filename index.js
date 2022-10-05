@@ -34,6 +34,7 @@ app.set("port", port || 3000);
 app.use("/api/auth", authRoutes);
 app.use("/api/usuario", usuarioRoutes);
 app.use("/api/carrera", carreraRoutes);
+app.use("/api/materia", materiaRoutes);
 
 app.listen(app.get("port"), () =>
   console.log(`Servidor corriendo en el puerto ${app.get("port")}`)

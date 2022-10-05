@@ -16,6 +16,7 @@ const MateriaSchema = new Schema(
           type: String,
           required: [true, "El cargo del profesor es necesario"],
         },
+        _id: false,
       },
     ],
     alumnos: [{
@@ -29,6 +30,7 @@ const MateriaSchema = new Schema(
           nota: { type: Number },
         },
       ],
+      _id: false,
     }],
     carrera: {
       idCarrera: {
@@ -53,6 +55,7 @@ const MateriaSchema = new Schema(
       type: Boolean,
       default: true,
     },
+
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },

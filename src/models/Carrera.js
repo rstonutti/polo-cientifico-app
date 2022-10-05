@@ -6,6 +6,19 @@ const CarreraSchema = new Schema(
       type: String,
       required: [true, "El nombre de la materia es necesario"],
     },
+    gestion: [
+      {
+        _id: false,
+        idUsuario: {
+          type: Schema.Types.ObjectId,
+          ref: "Usuario",
+        },
+        cargo: {
+          type: String,
+          //required: [true, "El cargo del profesor es necesario"],
+        },
+      },
+    ],
     materias: [
       {
         idMateria: {
