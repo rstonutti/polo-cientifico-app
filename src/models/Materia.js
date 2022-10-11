@@ -14,7 +14,6 @@ const MateriaSchema = new Schema(
         },
         cargo: {
           type: String,
-          required: [true, "El cargo del profesor es necesario"],
         },
         _id: false,
       },

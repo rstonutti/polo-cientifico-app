@@ -1,5 +1,5 @@
 const { request, response } = require("express");
-const { Carrera } = require("../models");
+const { Carrera, Materia } = require("../models");
 
 ctrlCarrera = {};
 
@@ -50,27 +50,45 @@ ctrlCarrera.obtenerCarrera = async (req = request, res = response) => {
 };
 
 ctrlCarrera.crearCarrera = async (req = request, res = response) => {
-  const body = req.body;
+  const { materias, ...resto } = req.body;
 
-  console.log(body)
+  let materiaId = [];
 
-   try {
-    const nuevaCarrera = new Carrera(body);
-    //nuevaCarrera.createdAt = Date.now();
-    const carrera = await nuevaCarrera.save();
+  materias.map(async (materia) => {
 
-    res.status(201).json({
-      ok: true,
-      msg: "La carrera fue creada con éxito",
-      carrera,
-    });
-  } catch (error) {
-    console.log("Error al registrar la carrera", error);
-    res.status(500).json({
-      ok: false,
-      msg: "Por favor hable con el administrador",
-    });
-  } 
+    const nuevaMateria = new Materia(materia);
+    const materiaGuardada = await nuevaMateria.save();
+
+    materiaId = [materiaGuardada._id, ...materiaId]
+
+    console.log(materiaId)
+
+  })
+
+
+
+
+  res.status(201).json({
+    body
+  });
+
+  /* try {
+   const nuevaCarrera = new Carrera(body);
+   //nuevaCarrera.createdAt = Date.now();
+   const carrera = await nuevaCarrera.save();
+
+   res.status(201).json({
+     ok: true,
+     msg: "La carrera fue creada con éxito",
+     carrera,
+   });
+ } catch (error) {
+   console.log("Error al registrar la carrera", error);
+   res.status(500).json({
+     ok: false,
+     msg: "Por favor hable con el administrador",
+   });
+ }  */
 };
 
 ctrlCarrera.borrarCarrera = async (req = request, res = response) => {
