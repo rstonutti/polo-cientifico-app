@@ -4,10 +4,11 @@ const { check } = require("express-validator");
 const {
   obtenerMateria,
   crearMateria,
+  buscarNota,
 } = require("../controllers/materia.controllers");
 
-router.get("/buscar/:id", obtenerMateria);
+router.get("/buscar/:id", obtenerMateria).post("/", crearMateria);
 
-router.post("/", crearMateria);
+router.get("/nota/:id/:idUsuario", buscarNota);
 
 module.exports = router;
