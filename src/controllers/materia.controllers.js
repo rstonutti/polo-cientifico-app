@@ -80,15 +80,20 @@ ctrlMateria.buscarNota = async (req = request, res = response) => {
   try {
     const nota = await Materia.find(
       {
-        _id: id,
-        "alumnos.idUsuario": idUsuario,
+        "_id": id,
+        "alumnos.idUsuario": idUsuario
       },
       {
-        alumnos: 1,
-      }
+        _id: false,
+        "alumnos.$": true /* {
+          $elemMatch: {
+            idUsuario: idUsuario,
+          }
+        } */
+      },
     );
 
-    const nota2 = await Materia.aggregate([
+    /* const nota = await Materia.aggregate([
       {
         $match: {
           _id: new mongoose.Types.ObjectId(id),
@@ -111,11 +116,10 @@ ctrlMateria.buscarNota = async (req = request, res = response) => {
           },
         },
       },
-    ]);
+    ]); */
 
     res.status(200).json({
       nota,
-      nota2,
     });
   } catch (err) {
     console.log("Error al obtener los datos de la materia: ", err);
