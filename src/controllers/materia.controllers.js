@@ -31,7 +31,6 @@ ctrlMateria.crearMateria = async (req = request, res = response) => {
   const body = req.body;
   try {
     const nuevaMateria = new Materia(body);
-    //nuevaMateria.createdAt = Date.now();
     const materia = await nuevaMateria.save();
 
     res.status(201).json({
