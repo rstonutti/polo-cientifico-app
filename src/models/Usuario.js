@@ -8,12 +8,10 @@ const UsuarioSchema = new Schema(
       required: [true, "El alias es necesario"],
     },
     nombre: {
-      type: String,
-      required: [true, "El nombre es necesario"],
+      type: String
     },
     apellido: {
       type: String,
-      required: [true, "El apellido es necesario"],
     },
 /*     dni: {
       type: String,
