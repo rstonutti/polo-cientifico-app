@@ -18,7 +18,7 @@ require("./src/database/connection.js");
 const app = express();
 
 //Directorio público
-app.use(express.static("../public"));
+app.use(express.static("public"));
 
 //Middlewares
 app.use(cors());

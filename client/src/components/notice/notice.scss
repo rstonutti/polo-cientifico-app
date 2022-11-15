@@ -1,0 +1,20 @@
+.notice-container {
+
+    flex-direction: column;
+
+    input {
+        border: 2px solid #cad2c5;
+        border-radius: 1rem;
+        padding: .5rem;
+
+        &:focus {
+            border: 2px solid #2f3e46;
+            outline: 0;
+        }
+    }
+
+    .notice-wrapper {
+        background-color: red;
+        height: 50px;
+    }
+}

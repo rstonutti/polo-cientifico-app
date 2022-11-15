@@ -1,0 +1,16 @@
+.poster-container {
+    align-items: flex-end;
+    background-color: #2f3e46;
+    border-radius: 1rem;
+    display: flex;
+    height: 240px;
+    justify-content: start;
+    margin: 1rem;
+
+    .poster-title {
+        font-size: 2rem;
+        margin: 1rem 1rem 1rem 3rem;
+        font-weight: bold;
+        color: white;
+    }
+}

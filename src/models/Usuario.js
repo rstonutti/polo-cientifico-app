@@ -8,16 +8,11 @@ const UsuarioSchema = new Schema(
       required: [true, "El alias es necesario"],
     },
     nombre: {
-      type: String
+      type: String,
     },
     apellido: {
       type: String,
     },
-/*     dni: {
-      type: String,
-      //unique: [true, "El DNI está en uso"],
-      //required: [true, "El apellido es necesario"],
-    }, */
     contrasenia: {
       type: String,
       required: [true, "La contraseña es necesaria"],
@@ -41,6 +36,10 @@ const UsuarioSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Carrera",
       },
+    },
+    inasistencias: {
+      type: Date,
+      default: true,
     },
     estado: {
       type: Boolean,
