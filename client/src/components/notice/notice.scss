@@ -1,20 +1,105 @@
 .notice-container {
+  flex-direction: column;
 
+  span {
+    position: absolute;
+    margin-left: .5rem;
+    height: 45.5px;
+    display: flex;
+    align-items: center;
+    //margin-top: 0.5rem;
+  }
+
+  input {
+    border: 2px solid #cad2c5;
+    border-radius: 1rem;
+    padding: 0.5rem;
+
+    &:focus {
+      border: 2px solid #2f3e46;
+      outline: 0;
+    }
+  }
+
+  .notice-wrapper {
     flex-direction: column;
-
-    input {
-        border: 2px solid #cad2c5;
-        border-radius: 1rem;
-        padding: .5rem;
-
-        &:focus {
-            border: 2px solid #2f3e46;
-            outline: 0;
-        }
-    }
-
-    .notice-wrapper {
-        background-color: red;
+    margin-bottom: 1rem;
+    .notice-notice {
+      //background-color: blue;
+      background-color: #dfe4dc;
+      //border: 2px solid black;
+      border-radius: 1rem;
+      margin: 1rem 0 0 0;
+      //margin: 1rem;
+      .notice-autor {
         height: 50px;
+        // border: 2px solid red;
+        .autor {
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          flex-direction: column;
+        }
+        .avatar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        img {
+          border-radius: 50%;
+          padding: 0.5rem;
+        }
+      }
+      .content {
+        padding: 1rem 1rem 0.5rem 1rem;
+        align-items: center;
+        justify-content: start;
+        text-align: justify;
+      }
+
+      .comment-wrapper {
+        .comment-button {
+          padding: 0.5rem 1rem 0rem;
+
+          &:hover {
+            color: limegreen;
+            cursor: pointer;
+          }
+        }
+
+        .comment {
+          padding: 0.5rem 0.5rem;
+          background-color: white;
+          border-radius: 0.5rem;
+          margin: 1rem;
+          margin-bottom: 1rem;
+          //border: 1px solid #2f3e46;
+
+          .comment-autor {
+            height: 2em;
+            .avatar {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            img {
+              border-radius: 50%;
+              padding: 0.5rem;
+            }
+            .autor {
+              display: flex;
+              align-items: flex-start;
+              justify-content: center;
+              flex-direction: column;
+            }
+          }
+          .content {
+            margin: 0;
+            //background-color: red;
+            padding: 0.5rem 0 0 0;
+          }
+        }
+      }
     }
+  }
 }
