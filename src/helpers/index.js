@@ -1,9 +1,7 @@
-const validacionesDB = require('./validacionesDB');
-const generarJWT = require('./generarJWT');
-const subirImagen = require('./subirImagen');
+const dbValidators = require("./db-validators");
+const generarJWT = require("./generar-jwt");
 
 module.exports = {
-    ...validacionesDB,
-    ...generarJWT,
-    ...subirImagen
-}
+  ...dbValidators,
+  ...generarJWT,
+};

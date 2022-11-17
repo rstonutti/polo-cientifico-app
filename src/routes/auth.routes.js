@@ -1,46 +1,34 @@
-const router = require("express").Router();
+const { Router } = require("express");
 const { check } = require("express-validator");
-const {
-  existeCorreo,
-  existeNombre,
-  existeRol,
-  existeUsuarioID,
-} = require("../helpers/validacionesDB");
-const {
-  registrar,
-  login,
-  revalidarToken,
-} = require("../controllers/auth.controllers");
-const {
-  validarCampos,
-  validarJWT,
-  adminRole,
-  tieneRole,
-} = require("../middlewares");
+const { existeRol, existeCorreo } = require("../helpers/validaciones-db");
+const { login, register, renew } = require("../controllers/auth.controllers");
+const { validarJWT, validarCampos, esAdminRole } = require("../middlewares");
+
+const router = Router();
 
 router.post(
-  "/registrar",
+  "/login",
   [
-    check("alias", "El alias de usuario no debe estar vacío").not().isEmpty(),
-    check(
-      "alias",
-      "El alias de usuario debe tener como minimo 2 caracteres"
-    ).isLength({ min: 2 }),
-    check("alias").custom(existeNombre),
-    check("contrasenia", "La contraseña no debe estar vacía").not().isEmpty(),
-    check(
-      "contrasenia",
-      "La contraseña debe tener como minimo 8 caracteres"
-    ).isLength({ min: 8 }),
-    //check("correo", "El correo no es válido").isEmail(),
-    //check("correo").custom(existeCorreo),
+    check("correo", "El correo es obligatorio").isEmail(),
+    check("password", "La contraseña es obligatoria").not().isEmpty(),
     validarCampos,
   ],
-  registrar
+  login
 );
 
-router.post("/login", login);
+router.post(
+  "/registro",
+  [
+    check("nombre", "El nombre es obligatorio").notEmpty(),
 
-router.get("/renew", validarJWT, revalidarToken);
+    check("correo", "El correo no es válido").isEmail(),
+    check("correo").custom(existeCorreo),
+    check("rol").custom(existeRol),
+    validarCampos,
+  ],
+  register
+);
+
+router.get("/", [validarJWT], renew);
 
 module.exports = router;

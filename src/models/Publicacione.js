@@ -11,6 +11,10 @@ const ComentarioSchema = new Schema(
       type: String,
       required: true,
     },
+    estado: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
@@ -23,28 +27,14 @@ const PublicacioneSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Usuario",
     },
-    lugar: {
-      type: String,
-    },
-    tipo: {
-      type: String,
-    },
     descripcion: {
       type: String,
       required: true,
     },
-    likes: [
-      {
-        idUsuario: {
-          type: Schema.Types.ObjectId,
-          ref: "Usuario",
-        },
-      },
-    ],
     comentario: [ComentarioSchema],
-    date: {
-      type: Date,
-      default: Date.now(),
+    estado: {
+      type: Boolean,
+      default: true,
     },
   },
   {

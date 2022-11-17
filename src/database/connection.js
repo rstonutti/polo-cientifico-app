@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
+const { atlas } = require("../config");
+
 mongoose
-  .connect(process.env.ATLAS, {
+  .connect(atlas, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

@@ -4,7 +4,7 @@ const Poster = () => {
   return (
     <div className="poster-container">
       <div className="poster-title">
-        <div className="title">Materia</div>
+        <div className="title">General</div>
       </div>
     </div>
   );

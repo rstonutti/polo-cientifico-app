@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { request, response } = require("express");
 const { Materia } = require("../models");
 

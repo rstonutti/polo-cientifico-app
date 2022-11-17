@@ -2,4 +2,12 @@
   //background-color: #2f3e46;
   height: 60px;
   border-radius: 0 0 1rem 1rem;
+
+  .container-fluid {
+    .navbar-brand {
+      span {
+        color: #707071;
+      }
+    }
+  }
 }

@@ -1,99 +1,116 @@
+const { response } = require("express");
 const bcryptjs = require("bcryptjs");
-const { request, response } = require("express");
-const { generarJWT } = require("../helpers/generarJWT");
+
 const { Usuario } = require("../models");
+
+const { generarJWT } = require("../helpers/generar-jwt");
 
 const ctrlAuth = {};
 
-ctrlAuth.registrar = async (req = request, res = response) => {
-  const { contrasenia, ...resto } = req.body;
+ctrlAuth.login = async (req, res = response) => {
+  const { correo, password } = req.body;
+
+  console.log(correo, password);
+
   try {
-    const usuario = new Usuario(resto);
-    //Encriptar contraseña
-    const salt = bcryptjs.genSaltSync();
-    usuario.contrasenia = bcryptjs.hashSync(contrasenia, salt);
-    //Guardar usuario en db
-    const usuarioCreado = await usuario.save();
+    // Verificar si el email existe
+    const usuario = await Usuario.findOne({ correo });
+    console.log(usuario);
+    if (!usuario) {
+      return res.status(400).json({
+        msg: "Usuario / Password no son correctos - correo",
+      });
+    }
 
-    const token = await generarJWT(usuarioCreado.id);
+    // SI el usuario está activo
+    if (!usuario.estado) {
+      return res.status(400).json({
+        msg: "Usuario / Password no son correctos - estado: false",
+      });
+    }
 
-    res.status(201).json({
-      ok: true,
-      msg: "Usuario agregado exitosamente",
-      token,
+    // Verificar la contraseña
+    const validPassword = bcryptjs.compareSync(password, usuario.password);
+    if (!validPassword) {
+      return res.status(400).json({
+        msg: "Usuario / Password no son correctos - password",
+      });
+    }
+
+    // Generar el JWT
+    const token = await generarJWT(usuario.id);
+
+    res.json({
       usuario,
+      token,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log("Error al iniciar sesión", err);
     res.status(500).json({
-      ok: false,
       msg: "Por favor, hable con el administrador",
     });
   }
 };
 
-//Controlador para logearse
-ctrlAuth.login = async (req = request, res = response) => {
-  const { alias, contrasenia } = req.body;
+ctrlAuth.register = async (req, res = response) => {
+  const { alias, nombre, apellido, password, correo, rol, ...resto } = req.body;
+
+  console.log(req.body);
+
+  const data = {
+    alias,
+    nombre,
+    apellido,
+    password,
+    correo,
+    rol,
+  };
 
   try {
-    const usuario = await Usuario.findOne({ alias });
+    const usuario = new Usuario(data);
 
-    //Existe el usuario
-    if (!usuario) {
-      return res.status(400).json({
-        msg: "El usuario o contraseña inválido - Usuario no existe",
-      });
-    }
+    // Encriptar la contraseña
+    const salt = bcryptjs.genSaltSync();
+    usuario.password = bcryptjs.hashSync(password, salt);
 
-    //El usuario está activo
-    if (!usuario.estado) {
-      return res.status(400).json({
-        msg: "El usuario o contraseña inválido - Usuario inactivo",
-      });
-    }
+    // Guardar en BD
+    const usuarioRegistrado = await usuario.save();
 
-    //Verificar contraseña
-    const contraseñaValida = bcryptjs.compareSync(
-      contrasenia,
-      usuario.contrasenia
-    );
-    if (!contraseñaValida) {
-      return res.status(400).json({
-        msg: "El usuario o contraseña inválido - Contraseña inválida",
-      });
-    }
-
-    //Generar JWT
-    const token = await generarJWT(usuario.id);
+    const token = await generarJWT(usuarioRegistrado.id);
 
     res.json({
-      ok: true,
-      msg: "Inicio de sesión exitoso",
       usuario,
       token,
     });
-  } catch (error) {
-    return res.status(500).json({
-      ok: false,
-      msg: "Error al iniciar sesión",
+  } catch (err) {
+    console.log("Error al registrar al usuario: ", err);
+    res.status(500).json({
+      msg: "Por favor, hable con el administrador",
     });
   }
 };
 
-ctrlAuth.revalidarToken = async (req = request, res = response) => {
+ctrlAuth.renew = async (req = request, res = response) => {
   const { _id } = req.usuario;
 
-  const usuario = await Usuario.findById(_id);
+  try {
+    const usuario = await Usuario.findById(_id);
 
-  const token = await generarJWT(_id);
+    const token = await generarJWT(_id);
 
-  res.json({
-    ok: true,
-    msg: "Token revalidado",
-    usuario,
-    token,
-  });
+    res.json({
+      ok: true,
+      msg: "Token revalidado",
+      usuario,
+      token,
+    });
+  } catch (err) {
+    console.log("Error al revalidar al token", err);
+    return res.status(500).json({
+      ok: false,
+      msg: "Por favor, hable con el administrador",
+    });
+  }
 };
 
 module.exports = ctrlAuth;

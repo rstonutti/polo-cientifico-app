@@ -13,7 +13,7 @@ const {
   existeNombre,
   existeRol,
   existeUsuarioID,
-} = require("../helpers/validacionesDB");
+} = require("../helpers/validaciones-db");
 
 const {
   validarCampos,
@@ -24,11 +24,7 @@ const {
 
 router.get(
   "/",
-  [
-    validarJWT,
-    tieneRole("admin_role", "collaboration_role", "user_role"),
-    validarCampos,
-  ],
+  [validarJWT, tieneRole("admin", "user"), validarCampos],
   obtenerTodos
 );
 
@@ -36,7 +32,7 @@ router.get(
   "/buscar/:id",
   [
     validarJWT,
-    tieneRole("admin_role", "collaboration_role", "user_role"),
+    //tieneRole("admin", "collaboration_role", "user_role"),
     check("id", "No es un ID válido").isMongoId(),
     check("id").custom(existeUsuarioID),
     validarCampos,
@@ -48,7 +44,7 @@ router.put(
   "/:id",
   [
     validarJWT,
-    tieneRole("admin_role", "teacher_role", "student_role", "user_role"),
+    tieneRole("admin", "teacher", "student", "user"),
     check("id", "No es un ID válido").isMongoId(),
     check("id").custom(existeUsuarioID),
     //check('nombre', 'El nombre de usuario no debe estar vacío').not().isEmpty(),

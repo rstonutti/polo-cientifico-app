@@ -13,7 +13,7 @@ const UsuarioSchema = new Schema(
     apellido: {
       type: String,
     },
-    contrasenia: {
+    password: {
       type: String,
       required: [true, "La contraseña es necesaria"],
     },
@@ -27,8 +27,8 @@ const UsuarioSchema = new Schema(
     },
     rol: {
       type: String,
-      enum: ["admin_role", "teacher_role", "student_role", "user_role"],
-      default: "user_role",
+      enum: ["admin", "teacher", "student", "user"],
+      default: "user",
       required: true,
     },
     carrera: {
@@ -39,7 +39,6 @@ const UsuarioSchema = new Schema(
     },
     inasistencias: {
       type: Date,
-      default: true,
     },
     estado: {
       type: Boolean,

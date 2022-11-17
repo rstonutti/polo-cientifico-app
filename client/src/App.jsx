@@ -1,15 +1,12 @@
-import { useState } from "react";
-import Navbar from "./components/navbar/Navbar";
-import Login from "./pages/auth/Login";
-import Home from "./pages/home/Home";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import AppRouter from "./router/AppRouter";
 
 function App() {
   return (
-    <div className="container">
-      <Navbar />
-      <Home />
-      {/* <Login /> */}
-    </div>
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
   );
 }
 
