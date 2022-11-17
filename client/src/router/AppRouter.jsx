@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { startChecking } from "../redux/actions/auth";
 
-const uid = false;
-
 const AppRouter = () => {
   const dispatch = useDispatch();
   const { checking, uid } = useSelector((state) => state.auth);
