@@ -8,8 +8,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { alias } = useSelector((state) => state.auth);
 
-  console.log(alias);
-
   const handleLogout = () => {
     dispatch(startLogout());
   };

@@ -1,91 +1,77 @@
 import { Image, Transformation } from "cloudinary-react";
+import { useForm } from "../../hooks/useForm";
+import { useDispatch } from "react-redux";
+import { addComments, deletePosts } from "../../redux/actions/post";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import CloseIcon from "@mui/icons-material/Close";
 import "./notice.scss";
-import { useEffect } from "react";
-import { getPosts } from "../../redux/actions/post";
-import { useDispatch, useSelector } from "react-redux";
+import Comments from "../comments/Comments";
 
-const Notice = () => {
+const Notice = ({ uid, autor, created_at, descripcion, comentario }) => {
   const dispatch = useDispatch();
-  const { posts, loading } = useSelector((state) => state.post);
 
-  console.log(posts);
+  const [formCommentValues, handleCommentChange, reset] = useForm({
+    descripcionComment: "",
+  });
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [getPosts]);
+  const { descripcionComment } = formCommentValues;
 
-  if (loading) {
-    return <h5>Espere...</h5>;
-  }
+  const handleComment = (uid) => {
+    dispatch(addComments({ descripcion: descripcionComment, uid }));
+    reset();
+  };
 
   return (
-    <div className="notice-container d-flex justify-content-center col col-8">
-      <div className="col-12">
-        <span>
-          <ArrowCircleRightIcon />
-        </span>
-        <input
-          className="notice-input col-12 text-center"
-          type="text"
-          placeholder="¿Tienes algún anuncio importante?"
-        />
-      </div>
-      <div className="notice-wrapper d-flex col-12">
-        {posts.map((post) => (
-          <div className="notice-notice" key={post.uid}>
-            <div className="notice-autor d-flex">
-              <div className="avatar">
-                <Image cloudName="dawjd5cx8" publicId="20190721_192752_dagpjk">
-                  <Transformation
-                    height="40"
-                    width="40"
-                    radius="max"
-                    aspectRatio="1.5"
-                    crop="fill"
-                  />
-                </Image>
-              </div>
-              <div className="autor">
-                <div className="name step--0 fw-bold">{post.autor.nombre}</div>
-                <div className="date step--1">{post.created_at}</div>
-              </div>
-            </div>
-            <div className="content d-flex step-0">{post.descripcion}</div>
-            <div className="comment-wrapper">
-              <div className="comment-button step--1">
-                Comentarios ({post.comentario.length})
-              </div>
-              {post.comentario.map((comment) => (
-                <div className="comment" key={comment._id}>
-                  <div className="comment-autor d-flex">
-                    <div className="autor">
-                      <div className="name step--1 fw-bold">
-                        {comment.autor.nombre}
-                      </div>
-                      <div className="date step--1">{comment.created_at}</div>
-                    </div>
-                  </div>
-                  <div className="content d-flex step--1">
-                    {comment.descripcion}
-                  </div>
-                </div>
-              ))}
-              <div className="input-comment col-12 d-flex">
-                <div className="col-12">
-                  <span>
-                    <ArrowCircleRightIcon />
-                  </span>
-                </div>
-                <input
-                  className="notice-input col-11 text-center step--1"
-                  type="text"
-                  placeholder="Escribe un comentario..."
-                />
-              </div>
-            </div>
+    <div className="notice-notice" key={uid}>
+      <div className="notice-autor d-flex">
+        <div className="d-flex">
+          <div className="avatar">
+            <Image cloudName="dawjd5cx8" publicId="20190721_192752_dagpjk">
+              <Transformation
+                height="40"
+                width="40"
+                radius="max"
+                aspectRatio="1.5"
+                crop="fill"
+              />
+            </Image>
           </div>
+          <div className="autor">
+            <div className="name step--0 fw-bold">{autor.nombre}</div>
+            <div className="date step--2 fst-italic">{created_at}</div>
+          </div>
+        </div>
+        <div className="notice-autor-close-icon">
+          <CloseIcon
+            onClick={() => {
+              dispatch(deletePosts({ uid }));
+            }}
+          />
+        </div>
+      </div>
+      <div className="content-comment d-flex step-0">{descripcion}</div>
+      <div className="comment-wrapper">
+        <div className="comment-button step--2">
+          Comentarios ({comentario.length})
+        </div>
+        {comentario.map((comment) => (
+          <Comments key={comment._id} {...comment} />
         ))}
+        <div className="input-comment col-12 d-flex">
+          <div className="col-12">
+            <span>
+              <ArrowCircleRightIcon onClick={() => handleComment(uid)} />
+            </span>
+          </div>
+          <input
+            className="notice-input col-11 text-center step--1"
+            type="text"
+            name="descripcionComment"
+            placeholder="Escribe un comentario..."
+            value={descripcionComment}
+            onChange={handleCommentChange}
+          />
+        </div>
       </div>
     </div>
   );

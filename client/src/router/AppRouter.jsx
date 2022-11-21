@@ -20,7 +20,7 @@ const AppRouter = () => {
   }, [dispatch]);
 
   if (checking) {
-    return <h5>Espere...</h5>;
+    return <h5 className="d-flex justify-content-center mt-5">Espere...</h5>;
   }
 
   return (

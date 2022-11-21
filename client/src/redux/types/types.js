@@ -7,7 +7,11 @@ export const types = {
   authLogout: "[auth] Logout",
 
   getPosts: "[post] Get posts",
-  addPost: "[post] Add post",
-  errorPost: "[post] Error post",
-  addComment: "[post] Add comment",
+  addPosts: "[post] Add posts",
+  deletePosts: "[post] Delete posts",
+  addComments: "[post] Add comments",
+  deleteComments: "[post] Delete Comments",
+  fetch: "[post] Fetch posts",
+  success: "[post] success post",
+  error: "[post] Error post",
 };

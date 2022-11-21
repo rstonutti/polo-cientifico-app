@@ -15,22 +15,55 @@ export default function (state = initialState, action) {
         posts: action.payload,
         loading: false,
       };
+    case types.addPosts:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
+        loading: false,
+      };
+    case types.deletePosts:
+      const updatePost = state.posts.filter(
+        (post) => post.uid != action.payload.uid
+      );
+      return {
+        ...state,
+        posts: updatePost,
+        loading: false,
+      };
+    case types.addComments:
+      const index = state.posts.findIndex(
+        (post) => post.uid == action.payload.uid
+      );
+      state.posts[index] = action.payload;
+
+      return {
+        ...state,
+      };
+    case types.deleteComments:
+      return {
+        ...state,
+        posts: state.posts.map((items) => ({
+          ...items,
+          comentario: items.comentario.filter(
+            (item) => item._id != action.payload._id
+          ),
+        })),
+        loading: false,
+      };
     case types.errorPost:
       return {
         ...state,
         error: action.payload,
         loading: false,
       };
-    case types.addPost:
+    case types.fetch:
       return {
         ...state,
-        posts: [action.payload, ...state.posts],
         loading: false,
       };
-    case types.addComment:
+    case types.success:
       return {
         ...state,
-        post: { ...state.post, comments: action.payload },
         loading: false,
       };
     default:

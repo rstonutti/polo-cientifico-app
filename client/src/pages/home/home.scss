@@ -1,0 +1,42 @@
+.home-container {
+    .container {
+        .notice-container {
+            flex-direction: column;
+
+            span {
+                position: absolute;
+                margin-left: .5rem;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                //margin-top: 0.5rem;
+                color: #2f3e46;
+
+                &:hover {
+                    color: #354f52;
+                    cursor: pointer
+                }
+            }
+
+            input {
+                border: 2px solid #cad2c5;
+                border-radius: 1rem;
+                padding: 0.5rem;
+                height: 45px;
+
+                &:focus {
+                    border: 2px solid #2f3e46;
+                    outline: 0;
+                }
+            }
+
+            .notice-wrapper {
+                flex-direction: column;
+                margin-bottom: 1rem;
+
+
+            }
+        }
+
+    }
+}
