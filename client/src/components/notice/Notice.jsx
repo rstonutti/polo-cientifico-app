@@ -1,6 +1,6 @@
 import { Image, Transformation } from "cloudinary-react";
 import { useForm } from "../../hooks/useForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addComments, deletePosts } from "../../redux/actions/post";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import CloseIcon from "@mui/icons-material/Close";
@@ -9,6 +9,7 @@ import Comments from "../comments/Comments";
 
 const Notice = ({ uid, autor, created_at, descripcion, comentario }) => {
   const dispatch = useDispatch();
+  const { uid: id } = useSelector((state) => state.auth);
 
   const [formCommentValues, handleCommentChange, reset] = useForm({
     descripcionComment: "",
@@ -41,13 +42,15 @@ const Notice = ({ uid, autor, created_at, descripcion, comentario }) => {
             <div className="date step--2 fst-italic">{created_at}</div>
           </div>
         </div>
-        <div className="notice-autor-close-icon">
-          <CloseIcon
-            onClick={() => {
-              dispatch(deletePosts({ uid }));
-            }}
-          />
-        </div>
+        {id === autor._id && (
+          <div className="notice-autor-close-icon">
+            <CloseIcon
+              onClick={() => {
+                dispatch(deletePosts({ uid }));
+              }}
+            />
+          </div>
+        )}
       </div>
       <div className="content-comment d-flex step-0">{descripcion}</div>
       <div className="comment-wrapper">
