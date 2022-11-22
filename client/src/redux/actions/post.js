@@ -43,12 +43,10 @@ export const deletePosts = (_id) => {
     const { msg } = await resp.json();
 
     if (resp.ok) {
-      dispatch(
-        dispatch({
-          type: types.deletePosts,
-          payload: _id,
-        })
-      );
+      dispatch({
+        type: types.deletePosts,
+        payload: _id,
+      });
     } else {
       Swal.fire("Error", msg, "error");
     }

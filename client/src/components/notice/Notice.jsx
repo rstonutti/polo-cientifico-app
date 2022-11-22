@@ -27,7 +27,7 @@ const Notice = ({ uid, autor, created_at, descripcion, comentario }) => {
       <div className="notice-autor d-flex">
         <div className="d-flex">
           <div className="avatar">
-            <Image cloudName="dawjd5cx8" publicId="20190721_192752_dagpjk">
+            <Image cloudName="dawjd5cx8" publicId={autor.avatar}>
               <Transformation
                 height="40"
                 width="40"

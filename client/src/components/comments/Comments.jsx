@@ -17,7 +17,7 @@ const Comments = ({ _id, autor, created_at, descripcion }) => {
           <div className="notice-autor-close-icon">
             <CloseIcon
               onClick={() => {
-                dispatch(deleteComment({ uid }));
+                dispatch(deleteComment({ _id }));
               }}
             />
           </div>

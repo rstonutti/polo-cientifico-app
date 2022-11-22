@@ -20,7 +20,7 @@ ctrlPublicaciones.crearComentario = async (req, res = response) => {
     await publicacion.save();
 
     const newComment = await Publicacion.findById(publicacion._id)
-      .populate("autor", "nombre")
+      .populate("autor")
       .populate("comentario.autor", "nombre");
 
     res.status(201).json({
@@ -81,7 +81,7 @@ ctrlPublicaciones.obtenerPublicaciones = async (req, res = response) => {
     const [total, publicaciones] = await Promise.all([
       Publicacion.countDocuments(query),
       Publicacion.find(query)
-        .populate("autor", "nombre")
+        .populate("autor")
         .populate("comentario.autor", "nombre"),
       //.skip(Number(desde))
       //.limit(Number(limite)),
@@ -139,7 +139,7 @@ ctrlPublicaciones.crearPublicacion = async (req = request, res = response) => {
 
     let publicacion = await nuevaPublicacion.save();
 
-    publicacion = await publicacion.populate("autor", "nombre");
+    publicacion = await publicacion.populate("autor");
 
     res.status(201).json({
       ok: true,
